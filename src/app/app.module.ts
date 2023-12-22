@@ -13,6 +13,8 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { UserComponent } from './components/user/user.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { LoanComponent } from './components/loan/loan.component';
+import { AmountPipe } from './utils/AmountPipe';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     DashboardComponent,
     NavBarComponent,
     UserComponent,
+    LoanComponent,
+    AmountPipe,
   ],
   imports: [
     BrowserModule,
