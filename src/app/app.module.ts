@@ -9,21 +9,28 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire/compat';
 import { envioment } from '../environments/environment';
 import { LoginComponent } from './components/login/login.component';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { UserComponent } from './components/user/user.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent,
+    NavBarComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    provideFirebaseApp(() => initializeApp({"projectId":"ares-by-nei","appId":"1:1014252413822:web:46869a991e0a2843c0c92f","storageBucket":"ares-by-nei.appspot.com","apiKey":"AIzaSyCmWB7Y7VLzNLOOki1pr5w_yxeBoQOsQJI","authDomain":"ares-by-nei.firebaseapp.com","messagingSenderId":"1014252413822","measurementId":"G-43CC2G3J93"})),
+    provideFirebaseApp(() => initializeApp(envioment.firebase)),
     provideAuth(() => getAuth()),
-
-    AngularFireModule.initializeApp(envioment.firebase)
+    provideFirestore(() => getFirestore()),
+    AngularFireModule.initializeApp(envioment.firebase),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
