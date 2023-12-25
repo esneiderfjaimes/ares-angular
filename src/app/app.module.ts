@@ -14,7 +14,7 @@ import { UserComponent } from './components/user/user.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LoanComponent } from './components/loan/loan.component';
-import { AmountPipe } from './utils/AmountPipe';
+import { AmountPipe } from './utils/amount.pipe';
 import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/fire/analytics';
 
 @NgModule({
