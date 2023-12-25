@@ -49,7 +49,7 @@ export class DashboardService {
     console.log(this.tag, 'initSubscriptionLoansByAuthor', userId);
     const q = query(
       collection(this.firestore, 'loans'),
-      where('author', '==', userId)
+      where('author', 'array-contains', userId)
     );
     this.unsubscribe = onSnapshot(q, (querySnapshot) => {
       console.log(this.tag, 'querySnapshot', querySnapshot);
