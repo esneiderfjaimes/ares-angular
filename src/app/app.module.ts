@@ -15,6 +15,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LoanComponent } from './components/loan/loan.component';
 import { AmountPipe } from './utils/AmountPipe';
+import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/fire/analytics';
 
 @NgModule({
   declarations: [
@@ -33,8 +34,12 @@ import { AmountPipe } from './utils/AmountPipe';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     AngularFireModule.initializeApp(envioment.firebase),
+    provideFirebaseApp(() => initializeApp({"projectId":"ares-by-nei","appId":"1:1014252413822:web:46869a991e0a2843c0c92f","storageBucket":"ares-by-nei.appspot.com","apiKey":"AIzaSyCmWB7Y7VLzNLOOki1pr5w_yxeBoQOsQJI","authDomain":"ares-by-nei.firebaseapp.com","messagingSenderId":"1014252413822","measurementId":"G-43CC2G3J93"})),
+    provideAnalytics(() => getAnalytics()),
   ],
-  providers: [],
+  providers: [
+    ScreenTrackingService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -11,7 +11,7 @@ import { Loan } from '../../shared/interfaces/loan';
 })
 export class DashboardComponent implements OnInit {
   user: User | null | undefined;
-  loans: Loan[] = [];
+  loans: Loan[] | undefined;
 
   constructor(
     private dashboardService: DashboardService,

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ares-by-nei": {
+      "hosting": {
+        "ares": [
+          "ares-by-nei"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ares-by-nei"
+  }
+}

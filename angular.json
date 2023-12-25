@@ -98,6 +98,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "ares:build:production",
+              "serveTarget": "ares:serve:production"
+            },
+            "development": {
+              "buildTarget": "ares:build:development",
+              "serveTarget": "ares:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
