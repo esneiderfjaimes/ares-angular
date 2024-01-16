@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { initDropdowns, initFlowbite } from 'flowbite';
 import { Flowbite } from '../../utils/Flowbite';
 import { Loan } from '../../shared/interfaces/loan';
@@ -10,6 +10,7 @@ import { Loan } from '../../shared/interfaces/loan';
 @Flowbite()
 export class LoanComponent implements OnInit {
   @Input() loan!: Loan;
+  @Output() onClick = new EventEmitter();
   progress: number = 75;
   totalToPay: number = 0;
   totalPaid: number = 0;
@@ -29,5 +30,9 @@ export class LoanComponent implements OnInit {
 
     initDropdowns();
     initFlowbite();
+  }
+
+  onClickHandler() {
+    this.onClick.emit();
   }
 }

@@ -1,0 +1,18 @@
+<div class="flex min-w-96 justify-between items-center border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-[#32323232] p-4">
+    <div class="flex items-center">
+        <h5 class="mb-2 text-6xl font-bold tracking-tight text-gray-900 dark:text-white pr-4">
+            {{ day }}
+        </h5>
+        <div class="flex-col">
+            <h5 class="text-1xl tracking-tight text-gray-900 dark:text-white">
+                {{ dayOfWeek }}
+            </h5>
+            <h5 class="text-1xl tracking-tight text-gray-900 dark:text-white">
+                {{ monthAndYear }}
+            </h5>
+        </div>
+    </div>
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        {{ transaction.amount | amount }}
+    </h5>
+</div>

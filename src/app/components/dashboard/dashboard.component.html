@@ -6,7 +6,9 @@
   >
     @if (loans) { @for (loan of loans; track loan.id) {
 
-    <loan-item [loan]="loan" />
+    <a (click)="onLoanClick(loan)">
+      <loan-item [loan]="loan" (onClick)="onLoanClick(loan)" />
+    </a>
 
     } @empty {
 

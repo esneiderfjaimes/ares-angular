@@ -36,5 +36,11 @@ export class DashboardComponent {
     console.log('log out clicked');
     this.dashboardService.logOut();
   }
+
+  onLoanClick(loan: Loan) {
+    console.log(loan);
+    this.router.navigate(['/loan'], { queryParams: { id: loan.id } });
+  }
+
   static tag = 'dashboardcomponenttag';
 }

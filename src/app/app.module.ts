@@ -16,6 +16,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { LoanComponent } from './components/loan/loan.component';
 import { AmountPipe } from './utils/amount.pipe';
 import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/fire/analytics';
+import { LoanPage } from './pages/loan/loan.page';
+import { TransactionComponent } from './components/transaction/transaction.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/
     NavBarComponent,
     UserComponent,
     LoanComponent,
+    LoanPage,
+    TransactionComponent,
     AmountPipe,
   ],
   imports: [

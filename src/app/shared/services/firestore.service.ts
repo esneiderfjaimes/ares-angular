@@ -39,6 +39,24 @@ export class FirestoreService {
     }
   }
 
+  async getLoanDocument(id: string): Promise<Loan | null> {
+    const docSnap = await getDoc(doc(this.firestore, 'loans', id));
+    if (docSnap.exists()) {
+      console.log(
+        FirestoreService.tag,
+        'getLoanDocument() Document data:',
+        docSnap.data()
+      );
+      const loan = docSnap.data() as Loan;
+      console.log(loan);
+      return loan;
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log(FirestoreService.tag, 'No such document!');
+      return null;
+    }
+  }
+
   getLoansByUidSnapshot(
     userId: string,
     onNext: (loans: Loan[]) => void
@@ -64,6 +82,23 @@ export class FirestoreService {
       const loans = querySnapshot.docs.map((doc) => {
         if (doc.exists()) {
           const loan = doc.data() as Loan;
+          loan.id = doc.id;
+
+          const transactions = loan.transactions
+          transactions.sort((a, b) => {
+            // Convierte las fechas a objetos Date para la comparación
+            const dateA = new Date(a.date.seconds * 1000);
+            const dateB = new Date(b.date.seconds * 1000);
+      
+            // Compara las fechas y devuelve el resultado de la comparación
+            return dateA.getTime() - dateB.getTime();
+          });
+
+          for (let i = 0; i < transactions.length; i++) {
+            transactions[i].id = i.toString();
+          }
+
+          loan.transactions = transactions;
           return loan;
         } else {
           console.log(FirestoreService.tag, 'No such document!');
