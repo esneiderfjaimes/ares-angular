@@ -18,6 +18,10 @@ import { AmountPipe } from './utils/amount.pipe';
 import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/fire/analytics';
 import { LoanPage } from './pages/loan/loan.page';
 import { TransactionComponent } from './components/transaction/transaction.component';
+import { TrendModule } from 'ngx-trend';
+// animations module required for autoDraw
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,9 @@ import { TransactionComponent } from './components/transaction/transaction.compo
     AmountPipe,
   ],
   imports: [
+    BrowserAnimationsModule,
+    TrendModule,
+    NgxChartsModule,
     BrowserModule,
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(envioment.firebase)),
