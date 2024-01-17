@@ -22,6 +22,8 @@ export class LoanHelper implements Loan {
     constructor(loan: Loan) {
         Object.assign(this, loan);
 
+        console.log(loan);
+
         this.totalRate = this.amount * (loan.rate / 100);
 
         this.totalPaid = LoanHelper.sumTransactions(this.transactions);

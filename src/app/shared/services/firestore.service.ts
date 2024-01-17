@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Transaction } from './../interfaces/transaction';
 import {
   DocumentData,
   Query,
@@ -49,7 +50,7 @@ export class FirestoreService {
       );
       const loan = docSnap.data() as Loan;
       console.log(loan);
-      return loan;
+      return this.prosessLoan(docSnap.id, loan);
     } else {
       // docSnap.data() will be undefined in this case
       console.log(FirestoreService.tag, 'No such document!');
@@ -82,47 +83,7 @@ export class FirestoreService {
       const loans = querySnapshot.docs.map((doc) => {
         if (doc.exists()) {
           const loan = doc.data() as Loan;
-          loan.id = doc.id;
-
-          const transactions = loan.transactions;
-          if (transactions && transactions.length > 0) {
-            transactions.sort((a, b) => {
-              // Convierte las fechas a objetos Date para la comparación
-              const dateA = new Date(a.date.seconds * 1000);
-              const dateB = new Date(b.date.seconds * 1000);
-
-              // Compara las fechas y devuelve el resultado de la comparación
-              return dateA.getTime() - dateB.getTime();
-            });
-
-            for (let i = 0; i < transactions.length; i++) {
-              transactions[i].id = i.toString();
-            }
-            loan.transactions = transactions;
-          } else {
-            loan.transactions = [];
-          }
-
-          const interests = loan.interests;
-          if (interests && interests.length > 0) {
-            interests.sort((a, b) => {
-              // Convierte las fechas a objetos Date para la comparación
-              const dateA = new Date(a.date.seconds * 1000);
-              const dateB = new Date(b.date.seconds * 1000);
-
-              // Compara las fechas y devuelve el resultado de la comparación
-              return dateA.getTime() - dateB.getTime();
-            });
-
-            for (let i = 0; i < interests.length; i++) {
-              interests[i].id = i.toString();
-            }
-
-            loan.interests = interests;
-          } else {
-            loan.interests = [];
-          }
-          return loan;
+          return this.prosessLoan(doc.id, loan);
         } else {
           console.log(FirestoreService.tag, 'No such document!');
           return null;
@@ -138,6 +99,33 @@ export class FirestoreService {
       console.log(FirestoreService.tag, 'filteredLoans', filteredLoans);
       onNext(filteredLoans);
     });
+  }
+
+  private prosessLoan(id: string, loan: Loan): Loan {
+    loan.id = id;
+    loan.transactions = this.validatedTransactions(loan.transactions);
+    loan.interests = this.validatedTransactions(loan.interests);
+    return loan;
+  }
+
+  private validatedTransactions(transactions: Transaction[]) {
+    if (transactions && transactions.length > 0) {
+      transactions.sort((a, b) => {
+        // Convierte las fechas a objetos Date para la comparación
+        const dateA = new Date(a.date.seconds * 1000);
+        const dateB = new Date(b.date.seconds * 1000);
+
+        // Compara las fechas y devuelve el resultado de la comparación
+        return dateA.getTime() - dateB.getTime();
+      });
+
+      for (let i = 0; i < transactions.length; i++) {
+        transactions[i].id = i.toString();
+      }
+      return transactions;
+    } else {
+      return [];
+    }
   }
 
   static tag = 'firestoreservice';
