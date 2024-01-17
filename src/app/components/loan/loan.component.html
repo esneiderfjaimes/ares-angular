@@ -1,63 +1,51 @@
-<a
-  (click)="onClickHandler()"
-  class="block w-full md:max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-[#32323232]"
->
-  <h5
-    class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-  >
+<a (click)="onClickHandler()"
+  class="block w-full md:max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-[#32323232]">
+  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
     {{ loan.description }}
   </h5>
 
-  <table
-    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-  >
+  <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
     <tbody>
       <tr class="border-b dark:border-gray-700">
-        <th
-          scope="row"
-          class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-        >
+        <th scope="row" class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
           Amount
         </th>
-        <td class="px-2 py-2 text-right">
-          {{ loan.amount | amount }}
-        </td>
+        <td class="px-2 py-2 text-right">+ {{ loan.amount | amount }}</td>
       </tr>
 
       <tr class="border-b dark:border-gray-700">
-        <th
-          scope="row"
-          class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-        >
-          Total to pay (Rate {{ loan.rate }}%)
+        <th scope="row" class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          Rate {{ loan.rate }}%
         </th>
-        <td class="px-2 py-2 text-right">
-          {{ totalToPay | amount }}
-        </td>
+        <td class="px-2 py-2 text-right">+ {{ loan.totalRate | amount }}</td>
       </tr>
 
       <tr class="border-b dark:border-gray-700">
-        <th
-          scope="row"
-          class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-        >
+        <th scope="row" class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          Aditional interest
+        </th>
+        <td class="px-2 py-2 text-right">+ {{ loan.aditionalInterest | amount }}</td>
+      </tr>
+
+      <tr class="border-b dark:border-gray-700">
+        <th scope="row" class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          Total to pay
+        </th>
+        <td class="px-2 py-2 text-right">= {{ loan.totalToPay | amount }}</td>
+      </tr>
+
+      <tr class="border-b dark:border-gray-700">
+        <th scope="row" class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
           Total paid
         </th>
-        <td class="px-2 py-2 text-right">
-          {{ totalPaid | amount }}
-        </td>
+        <td class="px-2 py-2 text-right">- {{ loan.totalPaid | amount }}</td>
       </tr>
 
       <tr class="border-b dark:border-gray-700">
-        <th
-          scope="row"
-          class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-        >
+        <th scope="row" class="px-2 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
           Balance
         </th>
-        <td class="px-2 py-2 text-right">
-          {{ balance | amount }}
-        </td>
+        <td class="px-2 py-2 text-right">= {{ loan.balance | amount }}</td>
       </tr>
     </tbody>
   </table>
@@ -65,13 +53,10 @@
   <div class="flex justify-between mb-1 pt-5">
     <span class="text-base font-medium text-blue-700 dark:text-white"> </span>
     <span class="text-sm font-medium text-blue-700 dark:text-white">
-      {{ progress }}%
+      {{ loan.progress }}%
     </span>
   </div>
   <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-    <div
-      class="bg-blue-600 h-2.5 rounded-full"
-      [style]="{ width: progress + '%' }"
-    ></div>
+    <div class="bg-blue-600 h-2.5 rounded-full" [style]="{ width: loan.progress + '%' }"></div>
   </div>
 </a>

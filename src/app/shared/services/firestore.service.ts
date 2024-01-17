@@ -84,21 +84,44 @@ export class FirestoreService {
           const loan = doc.data() as Loan;
           loan.id = doc.id;
 
-          const transactions = loan.transactions
-          transactions.sort((a, b) => {
-            // Convierte las fechas a objetos Date para la comparación
-            const dateA = new Date(a.date.seconds * 1000);
-            const dateB = new Date(b.date.seconds * 1000);
-      
-            // Compara las fechas y devuelve el resultado de la comparación
-            return dateA.getTime() - dateB.getTime();
-          });
+          const transactions = loan.transactions;
+          if (transactions && transactions.length > 0) {
+            transactions.sort((a, b) => {
+              // Convierte las fechas a objetos Date para la comparación
+              const dateA = new Date(a.date.seconds * 1000);
+              const dateB = new Date(b.date.seconds * 1000);
 
-          for (let i = 0; i < transactions.length; i++) {
-            transactions[i].id = i.toString();
+              // Compara las fechas y devuelve el resultado de la comparación
+              return dateA.getTime() - dateB.getTime();
+            });
+
+            for (let i = 0; i < transactions.length; i++) {
+              transactions[i].id = i.toString();
+            }
+            loan.transactions = transactions;
+          } else {
+            loan.transactions = [];
           }
 
-          loan.transactions = transactions;
+          const interests = loan.interests;
+          if (interests && interests.length > 0) {
+            interests.sort((a, b) => {
+              // Convierte las fechas a objetos Date para la comparación
+              const dateA = new Date(a.date.seconds * 1000);
+              const dateB = new Date(b.date.seconds * 1000);
+
+              // Compara las fechas y devuelve el resultado de la comparación
+              return dateA.getTime() - dateB.getTime();
+            });
+
+            for (let i = 0; i < interests.length; i++) {
+              interests[i].id = i.toString();
+            }
+
+            loan.interests = interests;
+          } else {
+            loan.interests = [];
+          }
           return loan;
         } else {
           console.log(FirestoreService.tag, 'No such document!');

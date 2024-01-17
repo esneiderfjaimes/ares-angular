@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/services/auth.service';
 import { User } from '../../shared/interfaces/user';
 import { DashboardService } from '../../shared/services/dashboard.service';
 import { Loan } from '../../shared/interfaces/loan';
+import { LoanHelper } from '../../shared/helpers/loan-helper';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +11,7 @@ import { Loan } from '../../shared/interfaces/loan';
 })
 export class DashboardComponent {
   user: User | undefined;
-  loans: Loan[] | undefined;
+  loans: LoanHelper[] | undefined;
 
   constructor(
     private dashboardService: DashboardService,
@@ -28,7 +28,7 @@ export class DashboardComponent {
     });
     this.dashboardService.loansObservable.subscribe((loans) => {
       console.log(DashboardComponent.tag, 'loans', loans);
-      this.loans = loans;
+      this.loans = loans.map((loan) => new LoanHelper(loan));
     });
   }
 
