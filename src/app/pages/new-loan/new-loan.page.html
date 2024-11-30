@@ -1,0 +1,112 @@
+<main class="bg-gray-50 dark:bg-gray-900 h-screen">
+  <div
+    class="max-w-screen-xl md:flex flex-col justify-evenly mx-auto p-8 items-center"
+  >
+    <form
+      [formGroup]="loanForm"
+      (ngSubmit)="onSubmit()"
+      class="max-w-md mx-auto"
+    >
+      <div class="mb-5">
+        <label
+          for="description"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+          Description
+        </label>
+        <input
+          id="description"
+          type="text"
+          formControlName="description"
+          placeholder="Loan description"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          required
+        />
+        <div
+          *ngIf="loanForm.get('description')?.invalid && loanForm.get('description')?.touched"
+          class="text-red-600 text-sm mt-1"
+        >
+          Description is required and must have at least 3 characters.
+        </div>
+      </div>
+
+      <div class="mb-5">
+        <label
+          for="amount"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+          Amount
+        </label>
+        <input
+          id="amount"
+          type="number"
+          formControlName="amount"
+          placeholder="Enter loan amount"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          required
+        />
+        <div
+          *ngIf="loanForm.get('amount')?.invalid && loanForm.get('amount')?.touched"
+          class="text-red-600 text-sm mt-1"
+        >
+          Amount should be greater than $10.000.
+        </div>
+      </div>
+
+      <div class="mb-5">
+        <label
+          for="rate"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+          Rate (%)
+        </label>
+        <input
+          id="rate"
+          type="number"
+          formControlName="rate"
+          placeholder="Enter interest rate"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          required
+        />
+        <div
+          *ngIf="loanForm.get('rate')?.invalid && loanForm.get('rate')?.touched"
+          class="text-red-600 text-sm mt-1"
+        >
+          Rate is required and must be non-negative.
+        </div>
+      </div>
+
+      <div class="mb-5">
+        <label
+          for="installments"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >
+          Installments
+        </label>
+        <select
+          id="installments"
+          formControlName="installments"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option value="1" selected>1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </select>
+        <div
+          *ngIf="loanForm.get('installments')?.invalid && loanForm.get('installments')?.touched"
+          class="text-red-600 text-sm mt-1"
+        >
+          Please select a valid number of installments.
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="loanForm.invalid"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</main>

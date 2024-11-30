@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuard, AuthGuardLogin } from './shared/guards/auth.guard';
 import { LoanPage } from './pages/loan/loan.page';
+import { NewLoanPage } from './pages/new-loan/new-loan.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,6 +16,11 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'new-loan',
+    component: NewLoanPage,
     canActivate: [AuthGuard],
   },
   {

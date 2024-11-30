@@ -1,5 +1,5 @@
 <main class="bg-gray-50 dark:bg-gray-900 h-screen">
-  <nav-bar [user]="user" (onlogOutClick)="logOut()" />
+  <nav-bar [user]="user" (onlogOutClick)="logOut()" (onNewLoanClick)="navigateToNewLoan()"/>
 
   <div
     class="max-w-screen-xl md:flex flex-wrap items-center justify-evenly mx-auto p-4"

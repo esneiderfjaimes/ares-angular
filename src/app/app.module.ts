@@ -17,10 +17,12 @@ import { LoanComponent } from './components/loan/loan.component';
 import { AmountPipe } from './utils/amount.pipe';
 import { getAnalytics, provideAnalytics, ScreenTrackingService } from '@angular/fire/analytics';
 import { LoanPage } from './pages/loan/loan.page';
+import { NewLoanPage } from './pages/new-loan/new-loan.page';
 import { TransactionComponent } from './components/transaction/transaction.component';
 // animations module required for autoDraw
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ReactiveFormsModule } from '@angular/forms'; // Importa esto
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     UserComponent,
     LoanComponent,
     LoanPage,
+    NewLoanPage,
     TransactionComponent,
     AmountPipe,
   ],
@@ -39,6 +42,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     NgxChartsModule,
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(envioment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

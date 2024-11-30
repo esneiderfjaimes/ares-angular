@@ -37,6 +37,11 @@ export class DashboardComponent {
     this.dashboardService.logOut();
   }
 
+  navigateToNewLoan() {
+    console.log('navigate to new loan clicked');
+    this.router.navigate(['/new-loan']);
+  }
+
   onLoanClick(loan: Loan) {
     console.log(loan);
     this.router.navigate(['/loan'], { queryParams: { id: loan.id } });

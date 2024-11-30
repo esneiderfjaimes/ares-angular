@@ -3,16 +3,20 @@ import { Transaction } from './../interfaces/transaction';
 import {
   DocumentData,
   Query,
+  addDoc,
   collection,
   doc,
   onSnapshot,
   query,
+  setDoc,
   where,
 } from 'firebase/firestore';
 import { Firestore, getDoc } from '@angular/fire/firestore';
 import { UserData } from '../interfaces/user-data';
 import { Loan } from '../interfaces/loan';
 import { Unsubscribe } from 'firebase/auth';
+import { from, map } from 'rxjs';
+import { LoanRemote } from '../interfaces/loan-remote';
 
 @Injectable({
   providedIn: 'root',
@@ -58,19 +62,38 @@ export class FirestoreService {
     }
   }
 
+  insertLoan(loan: LoanRemote) {
+    console.log(FirestoreService.tag, 'insertLoan', loan);
+    const colRef = collection(this.firestore, 'loans');
+    return from(addDoc(colRef, loan)).pipe(
+      map((docRef) => {
+        console.log(
+          FirestoreService.tag,
+          'Document written with ID: ',
+          docRef.id
+        );
+        return docRef.id;
+      })
+    );
+  }
+
   getLoansByUidSnapshot(
     userId: string,
     onNext: (loans: Loan[]) => void
   ): Unsubscribe {
     const q = query(
       collection(this.firestore, 'loans'),
-      where('author', 'array-contains', userId)
+      where('author', 'array-contains', userId),
+      where('isArchived', '!=', true)
     );
     return this.baseLoansSnapshot(q, onNext);
   }
 
   getAllLoansSnapshot(onNext: (loans: Loan[]) => void): Unsubscribe {
-    const q = query(collection(this.firestore, 'loans'));
+    const q = query(
+      collection(this.firestore, 'loans'),
+      where('isArchived', '!=', true)
+    );
     return this.baseLoansSnapshot(q, onNext);
   }
 

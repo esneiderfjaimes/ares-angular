@@ -19,6 +19,8 @@ export class LoanHelper implements Loan {
     totalPaid!: number;
     balance!: number;
 
+    isArchived!: boolean;
+
     constructor(loan: Loan) {
         Object.assign(this, loan);
 
@@ -37,6 +39,8 @@ export class LoanHelper implements Loan {
         this.balance = this.totalToPay - this.totalPaid;
 
         this.remainingInstallments = loan.installments - this.transactions.length;
+
+        this.isArchived = loan.isArchived;
     }
 
     static sumTransactions(transactions: Transaction[]): number {

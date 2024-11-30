@@ -8,4 +8,5 @@ export interface Loan {
   installments: number;
   transactions: Transaction[];
   interests: Transaction[];
+  isArchived: boolean;
 }

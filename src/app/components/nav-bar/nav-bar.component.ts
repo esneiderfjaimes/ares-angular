@@ -11,10 +11,16 @@ import { Flowbite } from '../../utils/Flowbite';
 export class NavBarComponent implements OnInit {
   @Input() user: User | null | undefined;
   @Output() onlogOutClick = new EventEmitter();
+  @Output() onNewLoanClick = new EventEmitter();
 
   ngOnInit(): void {
     initDropdowns();
     initFlowbite();
+  }
+
+  navigateToNewLoan() {
+    console.log('navigate to new loan clicked event emitted');
+    this.onNewLoanClick.emit();
   }
 
   logOut() {
